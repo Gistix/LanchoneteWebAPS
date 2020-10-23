@@ -32,7 +32,7 @@ body {
 
 header {
   /*background: url(media/bg-home.jpg);*/
-  background-color: #2E75E9;
+  background-color: #EB4E02;
   height: 150px;
   color: white;
   
@@ -69,6 +69,7 @@ article {
   padding: 0 10px;    
 }
 
+
 .formspace {
     line-height: 175%;
 }
@@ -82,8 +83,13 @@ article {
   cursor: pointer;
   border: none;
   color: black;
-
+  
   font-size: 90%;
+}
+
+.button:hover{
+    color: #D4D9D7;
+    background-color: #2F3030;
 }
 
 article ul {
@@ -131,6 +137,10 @@ article li {
 .column {
   flex: 25%;
   padding: 0 2px;
+}
+
+.logo{
+    padding-left: 650px;
 }
 
 /* Footer */
