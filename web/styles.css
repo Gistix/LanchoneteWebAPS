@@ -1,0 +1,160 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 21, 2020, 2:01:52 PM
+    Author     : Giovanni
+*/
+* {
+  margin: 0;
+}
+
+html {
+   overflow: hidden;
+       height: 100%;
+}
+
+body {
+  /*background: url(media/bg.png);
+  background-size: cover;
+  background-attachment: fixed;*/
+
+  font-family: Helvetica, Tahoma;
+  overflow-x: hidden; 
+  box-sizing: border-box; 
+  text-align: justify;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  /*background: url(media/bg-home.jpg);*/
+  background-color: #2E75E9;
+  height: 150px;
+  color: white;
+  
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  font-size: 30px;
+}
+
+.grid-container {
+  display: grid;
+}
+
+/* Article */
+article {
+  background-color: white;
+  margin: auto; 
+  color: black; 
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: auto;
+}
+
+.form {
+  padding: 0 10px;    
+}
+
+.formspace {
+    line-height: 175%;
+}
+
+.button {
+    width: 75px;
+     height: 25px;   
+  border-radius: 3px;
+  margin-top: 8px;
+  background-color: lightgray;
+  cursor: pointer;
+  border: none;
+  color: black;
+
+  font-size: 90%;
+}
+
+article ul {
+  list-style: none;
+}
+
+article ul span {
+  line-height: 0.25;
+}
+
+article li {
+  padding-left: 10px;
+}
+
+/* Grid */
+.griditem {
+  width: 275px;
+  height: 200px;
+  border-radius: 3px;
+  margin-top: 8px;
+  background-color: lightgray;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  
+  font-size: 30px;
+}
+
+.griditem .overlay:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.column {
+  flex: 25%;
+  padding: 0 2px;
+}
+
+/* Footer */
+footer {
+  position: relative;
+  padding: 25px;
+  font-weight: bold;
+  text-align: center;
+  color: darkgray;
+  background-color: rgb(40, 40, 45);
+  display: flex;
+}
+
+footer ul {
+  list-style: none;
+  width: 50%;
+}
+
+footer li {
+  color: gray;
+  line-height: 1;
+}
+
+footer li a {
+  color: gray;
+  text-decoration: none;
+}
