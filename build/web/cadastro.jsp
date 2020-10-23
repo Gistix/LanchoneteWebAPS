@@ -31,22 +31,28 @@
                         Número:<br>
                         Cep:
                     </div>                 
-                    <div class="form">
-                        <form action="cadastrar" method="get">
-                            <input type="text" nome="nome"><br>
-                            <input type="cpf" nome="cpf"><br>
-                            <input type="text" nome="usuario"><br>
-                            <input type="password" nome="senha"><br><br><br>
-                            <input type="endereco" nome="rua"><br>
-                            <input type="endereco" nome="numero"><br>
-                            <input type="endereco" nome="cep">
-                        </form>
-                        <br>
-                        <div>
-                            <input type="submit" name="confirmar-cadastro" value="Confirmar" class="button">
-                            <form method="get" action="index.jsp">
-                                <button type="submit" class="button">Cancelar</button>
+                        <div class="form">
+                            <form action="cadastrar" method="get">
+                                <input type="text" nome="nome"><br>
+                                <input type="cpf" nome="cpf"><br>
+                                <input type="text" nome="usuario"><br>
+                                <input type="password" nome="senha"><br><br><br>
+                                <input type="endereco" nome="rua"><br>
+                                <input type="endereco" nome="numero"><br>
+                                <input type="endereco" nome="cep">
                             </form>
+                            <br>
+                            <div class="row">
+                                <div class="column">
+                                    <input type="submit" name="confirmar-cadastro" value="Confirmar" class="button">
+
+                                </div>
+                                <div class="column">
+                                        <form method="get" action="index.jsp">
+                                            <button type="submit" class="button">Cancelar</button>
+                                        </form>
+                                </div>
+                            </div>  
                         </div>                                         
                     </div>                         
                 </div> 
