@@ -45,12 +45,11 @@
                             <div class="row">
                                 <div class="column">
                                     <input type="submit" name="confirmar-cadastro" value="Confirmar" class="button">
-
                                 </div>
                                 <div class="column">
-                                        <form method="get" action="index.jsp">
-                                            <button type="submit" class="button">Cancelar</button>
-                                        </form>
+                                    <form method="get" action="index.jsp">
+                                        <button type="submit" class="button">Cancelar</button>
+                                    </form>
                                 </div>
                             </div>  
                         </div>                                         
@@ -60,7 +59,13 @@
         </article>
         
         <footer>
-            
+            <ul>
+                <p>SISTEMA LANCHONETE WEB</p>
+            </ul>	
+
+            <ul>					
+                <li><p>APS Ciência da Computação 4º Semestre 2020, UNIP.</p></li>			
+            </ul>
         </footer>
     </body>
 </html>
