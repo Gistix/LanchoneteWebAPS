@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import java.io.Serializable;
 import javax.persistence.*;
 import org.eclipse.persistence.annotations.Array;
 
@@ -12,7 +13,7 @@ import org.eclipse.persistence.annotations.Array;
  *
  * @author Giovanni
  */
-class ClienteId {
+class ClienteId implements Serializable {
     private String cpf;
     private String usuario;
 }

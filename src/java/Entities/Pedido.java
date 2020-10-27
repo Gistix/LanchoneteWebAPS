@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 /**
@@ -12,14 +13,15 @@ import javax.persistence.*;
  * @author Giovanni
  */
 @Entity
+@Table(name="tb_pedido")
 public class Pedido {
     @Id
-    private int numero;
-    private String usuario;
-    private int pao;
-    private int carne;    
-    private int salada;
-    private int molho;
+    public int numero;
+    public String usuario;
+    public int pao;
+    public int carne;    
+    public int salada;
+    public int molho;
  
     public Pedido () {};      
     
@@ -30,53 +32,5 @@ public class Pedido {
         this.carne = carne;
         this.salada = salada;
         this.molho = molho;     
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public int getPao() {
-        return pao;
-    }
-
-    public void setPao(int pao) {
-        this.pao = pao;
-    }
-
-    public int getCarne() {
-        return carne;
-    }
-
-    public void setCarne(int carne) {
-        this.carne = carne;
-    }
-
-    public int getSalada() {
-        return salada;
-    }
-
-    public void setSalada(int salada) {
-        this.salada = salada;
-    }
-
-    public int getMolho() {
-        return molho;
-    }
-
-    public void setMolho(int molho) {
-        this.molho = molho;
     }
 }

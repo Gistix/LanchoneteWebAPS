@@ -24,7 +24,7 @@
                     <div class="form">
                         Nome:<br>
                         CPF:<br>
-                        Usuário(Login):<br>
+                        Usuário:<br>
                         Senha:<br><br>
                         Endereço:<br>
                         Rua:<br>
@@ -39,20 +39,19 @@
                                 <input type="password" nome="senha"><br><br><br>
                                 <input type="endereco" nome="rua"><br>
                                 <input type="endereco" nome="numero"><br>
-                                <input type="endereco" nome="cep">
+                                <input type="endereco" nome="cep">                           
+                                <br>
+                                <div class="row">
+                                    <div class="column">
+                                        <input type="submit" name="confirmar-cadastro" value="Confirmar" class="button">
+                                    </div>
+                                    <div class="column">
+                                            <form method="get" action="index.jsp">
+                                                <button type="submit" class="button">Cancelar</button>
+                                            </form>
+                                    </div>
+                                </div> 
                             </form>
-                            <br>
-                            <div class="row">
-                                <div class="column">
-                                    <input type="submit" name="confirmar-cadastro" value="Confirmar" class="button">
-
-                                </div>
-                                <div class="column">
-                                        <form method="get" action="index.jsp">
-                                            <button type="submit" class="button">Cancelar</button>
-                                        </form>
-                                </div>
-                            </div>  
                         </div>                                         
                     </div>                         
                 </div> 

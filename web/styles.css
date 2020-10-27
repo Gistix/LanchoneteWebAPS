@@ -76,15 +76,15 @@ article {
 
 .button {
     width: 75px;
-     height: 25px;   
-  border-radius: 3px;
-  margin-top: 8px;
-  background-color: lightgray;
-  cursor: pointer;
-  border: none;
-  color: black;
-  
-  font-size: 90%;
+    height: 25px;   
+    border-radius: 3px;
+    margin-top: 8px;
+    background-color: lightgray;
+    cursor: pointer;
+    border: none;
+    color: black;
+
+    font-size: 90%;
 }
 
 .button:hover{
@@ -109,7 +109,6 @@ article li {
   width: 275px;
   height: 200px;
   border-radius: 3px;
-  margin-top: 8px;
   background-color: lightgray;
   cursor: pointer;
   text-align: center;
@@ -120,7 +119,7 @@ article li {
   display: flex;
   justify-content: center;
   align-items: center; 
-  
+  margin: 8px;
   font-size: 30px;
 }
 

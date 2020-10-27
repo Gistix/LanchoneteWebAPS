@@ -50,11 +50,11 @@ public class Ingrediente {
     }    
     
     @Id
-    private int numero;
-    private String nome;
+    public int numero;
+    public String nome;
     //@Enumerated(EnumType.ORDINAL)
-    private int tipo;
-    private float preco;
+    public int tipo;
+    public float preco;
  
     public Ingrediente () {};    
     
@@ -64,46 +64,5 @@ public class Ingrediente {
         //this.tipo = Tipo.values()[tipo-1];
         this.tipo = tipo;
         this.preco = preco;        
-    }
-    
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-
-    public Tipo getTipoEnum() {
-        return Tipo.fromInt(tipo);
-        //return Tipo.values()[tipo-1];
-    }
-
-    public void setTipoEnum(Tipo tipo) {
-        this.tipo = tipo.value;
-    }    
-    
-    public float getPreco() {
-        return preco;
-    }
-
-    public void setPreco(float preco) {
-        this.preco = preco;
     }
 }
