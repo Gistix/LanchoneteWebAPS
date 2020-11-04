@@ -35,36 +35,12 @@ public class escolherServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession session = request.getSession(false);
-        
-        try (PrintWriter out = response.getWriter()) {
-            if (session != null) {
-                String usuario = (String) session.getAttribute("usuario");
-                int nivel = (Integer) session.getAttribute("nivel");
-                
-                out.println("<table>");
-                out.println("    <tr>");
-                out.println("        <td><a href='novoPedido.jsp' class='griditem'>Novo pedido</a></td>");
-                out.println("        <td><a href='pedidos.jsp' class='griditem'>Meus pedidos</a></td>");
-                out.println("    </tr>");
-                
-                if (nivel >= 1) {
-                    out.println("    <tr>");
-                    out.println("        <td><a href='todosPedidos.jsp' class='griditem'>Exibir pedidos</a></td>");
-                    
-                    if (nivel == 2)
-                        out.println("        <td><a href='novoIngrediente.jsp' class='griditem'>Novo ingrediente</a></td>");
-                    
-                    out.println("    </tr>");                    
-                }
-                
-                out.println("</table>");            
-            } else {
-                out.println("<h1>Voce precisa estar logado para acessar essa página.</h1>");
-                out.println("<a href='index.jsp'>Fazer login.</a>");                
-            }
-
-            out.close();
+        if (!Utilidades.EstaLogado(request)) {
+            //request.setAttribute("erro", "Voce precisa estar logado para acessar essa página.");
+            //request.getRequestDispatcher("index.jsp").forward(request, response);
+            
+            response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
+            response.setHeader("url", "index.jsp");
         }
     }
 

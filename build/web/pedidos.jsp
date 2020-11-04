@@ -12,26 +12,43 @@
         <title>Highway</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGet("pedidosServlet");</script>        
+        <script>sendGetReplace("pedidosServlet");</script>
     </head>
-    <body>   
-        <header>           
-            <h1 class="titletext">HIGHWAY</h1>         
-            <img src="https://i.ibb.co/D8J4yVj/logo-aps.png" alt="coca-icone" width=300 height=140 class="logo"> 
-            <div>
-                Test <a href="logoutServlet">Logout</a>  
+    <body onload="onLoad()">   
+        <header>  
+            <div class="table">
+                <div class="header">
+                    <h1 class="titletext">HIGHWAY</h1>         
+                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo" class="logo">  
+                </div>
             </div>
-        </header> 
+            <div class="table barra">
+                <nav>
+                    <ul>
+                        <div class="folding">                          
+                            <li class="item"><a href="escolher.jsp">Home</a></li>
+                            <li class="item"><a href="novoPedido.jsp">Novo Pedido</a></li>
+                            <li class="active item"><p>Meus Pedidos</p></li>                            
+                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrc.html">Novo Ingrediente</a></li>	
+                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrv.html">Faturamento</a></li>																						
+                        </div>
+                    </ul>
+                </nav>
+                <div class="info">
+                    <a class="sair" href="logoutServlet">Sair</a><p>&nbsp(${usuario})</p>  
+                </div>                
+            </div>
+        </header>
         
 	<article>
-            <div id="content" class="center">              
-                
+            <div id="content" class="center grid-container grande">
+
             </div>        
        </article>
             
         <footer>
             <ul>
-                <p>SISTEMA LANCHONETE WEB</p>
+                <p>LANCHONETE WEB</p>
             </ul>	
 
             <ul>					

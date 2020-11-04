@@ -23,40 +23,53 @@ public class EclipseLinkMgr {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("APS4SemestrePU");
     private EntityManager em = emf.createEntityManager();
     
-    public void Iniciar() {
-        try {
-            System.out.println("Iniciando");
-            /*List<Cliente> clientes = Query("SELECT c FROM Cliente c");
-            
-            for (Cliente cliente : clientes)
-                System.out.println(cliente.getNome() + ", " + cliente.getCpf() + ": " + cliente.getUsuario() + ", Endereço: " + cliente.getEndereco().toString());*/
+    // Funções básicas query
+    public static Query Query (String query) {
+        return instance.em.createQuery(query);
+    }
 
-            /*List<Ingrediente> ingredientes = em.createQuery("SELECT c FROM Ingrediente c", Ingrediente.class).getResultList();
-            
-            for (Ingrediente ingrediente : ingredientes)
-                System.out.println(ingrediente.getNome());*/           
-            
-        } catch (Exception e) {       
-            System.out.println(e.getMessage()); 
-        }  
+     public static <T> void QueryInsert (T entity) {
+        instance.em.getTransaction().begin();
+        instance.em.persist(entity);
+        instance.em.getTransaction().commit();
+    }   
+    
+    public static <T> List<T> QueryResult (String query) {
+        return Query(query).getResultList();
+    }   
+
+    public static <T> T QuerySingleResult (String query) {
+        return (T) Query(query).getSingleResult();
+    }    
+    
+    public static int QueryUpdate (String query) {
+        return Query(query).executeUpdate();
     }
     
-    public static <T> List<T> Query (String query) {
-        return instance.em.createQuery(query).getResultList();
-    }
-    
-    public static Boolean Login(String usuario, String senha) {
-        List<Cliente> clientes = EclipseLinkMgr.Query("SELECT c FROM Cliente c WHERE (c.usuario = '" + usuario + "' AND c.senha = '" + senha + "')");
+    // Funções com entidades
+    // Usuário
+    public static Cliente Login(String usuario, String senha) {
+        List<Cliente> clientes = EclipseLinkMgr.QueryResult("SELECT c FROM Cliente c WHERE (c.usuario = '" + usuario + "' AND c.senha = '" + senha + "')");
         
-        return clientes.size() != 0;
+        if (clientes == null || clientes.size() == 0)
+            return null;
+        else
+            return clientes.get(0);
     }
- 
-     public static List<Ingrediente> Ingredientes(Pedido pedido) {
-        return EclipseLinkMgr.Query("SELECT i FROM Ingrediente i WHERE (i.numero = " + pedido.pao + " OR i.numero = " + pedido.carne + " OR i.numero = " + pedido.salada + " OR i.numero = " + pedido.molho + ")");
+
+    public static Boolean UsuarioCPFExiste(String usuario, String cpf) {
+        List<Cliente> clientes = EclipseLinkMgr.QueryResult("SELECT c FROM Cliente c WHERE (c.usuario = '" + usuario + "' OR c.cpf = '" + cpf + "')");
+        
+        return (clientes != null && clientes.size() != 0);
+    }    
+    
+    // Ingrediente
+    public static List<Ingrediente> Ingredientes(Pedido pedido) {
+        return EclipseLinkMgr.QueryResult("SELECT i FROM Ingrediente i WHERE (i.numero = " + pedido.pao + " OR i.numero = " + pedido.carne + " OR i.numero = " + pedido.salada + " OR i.numero = " + pedido.molho + ")");
     }
 
     public static String[] NomeIngredientes(List<Ingrediente> ingredientes) {
-        String[] nomes = new String[] {"", "", "-", "-"};
+        String[] nomes = new String[] {"", "", "", ""};
         
         for(Ingrediente ingrediente : ingredientes) {
             nomes[ingrediente.tipo-1] = ingrediente.nome;
@@ -64,7 +77,12 @@ public class EclipseLinkMgr {
         
         return nomes;
     }
-     
+    
+    // Pedido   
+    public static List<Pedido> Pedidos (String usuario) {
+        return EclipseLinkMgr.QueryResult("SELECT p FROM Pedido p WHERE p.usuario = '" + usuario + "'");
+    }    
+    
     public static double Preco (List<Ingrediente> ingredientes) {
         double preco = 0.00;
         

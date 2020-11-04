@@ -7,20 +7,79 @@ and open the template in the editor.
     Created on : Oct 21, 2020, 2:01:52 PM
     Author     : Giovanni
 */
+:root {
+    --mainColor: #FFCD20;
+    --hoverColor: #FFDE6C;    
+    --bgColor: rgb(32, 32, 32);
+    --bgColorLighter: rgb(64, 64, 64);   
+}
+
 * {
   margin: 0;
 }
 
 html {
-   overflow: hidden;
-       height: 100%;
+    overflow: hidden;
+    height: 100%;
+}
+
+header {
+  display: table;
+
+  position: relative;
+}
+
+.header {
+  background-color: var(--mainColor);
+  color: white;
+  
+  align-items: center;
+  display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+  
+  font-size: 30px;
+  height: 150px;
+  position: relative;    
+}
+
+.logo{
+    padding-right: inherit;   
+    height: 140px;
+    position: absolute;
+    right: 0px;
+}
+
+.table {
+    width: 100%;
+    display: table-row;
+}
+
+.barra {
+    padding-left: 50px;  
+    font-size: 125%;
+    color: var(--mainColor);
+    align-items: center;
+    display: flex;
+  
+    background-color: white;
+    width: 100%;
+    height: 40px;
+}
+
+.info {
+    position: absolute;
+    right: 0px;
+    display: flex;
+    padding-right: 85px;
+}
+
+.sair {
+    text-decoration: none;
+    color: var(--bgColor);
 }
 
 body {
-  /*background: url(media/bg.png);
-  background-size: cover;
-  background-attachment: fixed;*/
-
   font-family: Helvetica, Tahoma;
   overflow-x: hidden; 
   box-sizing: border-box; 
@@ -28,50 +87,61 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: var(--bgColor);
 }
 
-header {
-  /*background: url(media/bg-home.jpg);*/
-  background-color: #EB4E02;
-  height: 150px;
-  color: white;
-  
-  display: flex;
-  align-items: center;
-  padding-left: 50px;
-  font-size: 30px;
-}
-
-.grid-container {
-  display: grid;
-}
+.hide { display: none; }
+.show { display: block; }
 
 /* Article */
 article {
-  background-color: white;
-  margin: auto; 
-  color: black; 
-  flex: 1 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
+    width: 100%;
+      
+    background: url(img/bg.png);
+    background-repeat: repeat;
+    background-size: 10%;   
+
+    margin: auto; 
+    color: black; 
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.icone-ingrediente {
+    width: 100px;
 }
 
 .center {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: auto;
+}
+
+.div-sel-ingrediente {
+    display: block;
+    align-items: center;
+    justify-content: center;
 }
 
 .form {
-  padding: 0 10px;    
+  padding-right: 10px;    
 }
-
 
 .formspace {
     line-height: 175%;
+}
+
+.form-bg {
+    background-color: white;
+    cursor: default;
+    color: var(--bgColor);
+ 
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+    border-radius: 3px;  
+    padding: 60px 60px;
 }
 
 .button {
@@ -92,54 +162,77 @@ article {
     background-color: #2F3030;
 }
 
-article ul {
-  list-style: none;
+/* Grid */
+.grid-container {
+    display: grid;
+    grid-gap: 20px;
+
+    grid-template-columns: repeat(auto-fit, 275px);
 }
 
-article ul span {
-  line-height: 0.25;
+.grid-container.grande {
+    max-width: 1148px;
 }
 
-article li {
-  padding-left: 10px;
+.grid-container.pequeno {
+    max-width: 600px;
+}
+
+.grid {
+    width: 275px;
+    height: 200px;
+    border-radius: 3px;   
 }
 
 /* Grid */
-.griditem {
-  width: 275px;
-  height: 200px;
-  border-radius: 3px;
-  background-color: lightgray;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  border: none;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  margin: 8px;
-  font-size: 30px;
+.grid.menu {
+    background-color: var(--mainColor);
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    font-size: 30px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
+    transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease;
+    transition-delay: 0.0s;
 }
 
-.griditem .overlay:hover {
-  background-color: rgba(255,255,255,0.25);
+.grid.menu:hover {
+    width: 295px;
+    height: 220px;  
+    background-color: var(--hoverColor);
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 4px;
+.grid.pedido {
+    background-color: white;
+    cursor: default;
+    color: var(--bgColor);
+ 
+    font-size: 25px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
+    position: relative;
 }
 
-.column {
-  flex: 25%;
-  padding: 0 2px;
+.ingredientes {
+    margin-top: 15px;    
+    margin-left: 20px;  
 }
 
-.logo{
-    padding-left: 650px;
+.total {   
+    margin-left: 20px;
+    margin-bottom: 15px;    
+    position: absolute;
+    bottom: 0;     
+}
+
+.ladoalado {
+    display: flex;
+}
+
+.espacobotao {
+  padding: 0 8px;
 }
 
 /* Footer */
@@ -148,8 +241,8 @@ footer {
   padding: 25px;
   font-weight: bold;
   text-align: center;
-  color: darkgray;
-  background-color: rgb(40, 40, 45);
+  color: var(--bgColor);
+  background-color: white;
   display: flex;
 }
 
@@ -159,11 +252,43 @@ footer ul {
 }
 
 footer li {
-  color: gray;
+  /*color: gray;*/
   line-height: 1;
 }
 
 footer li a {
-  color: gray;
+  /*color: gray;*/
   text-decoration: none;
+}
+
+/* Menu */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;   
+}
+
+nav li {
+    float: left;   
+}
+
+nav li a, nav li p {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 0 16px;
+  text-decoration: none;
+  height: 40px;
+  align-items: center;
+  display: flex;
+}
+
+nav li a:hover {
+  box-shadow: inset 0 -5px 0 var(--mainColor);
+}
+
+.active {
+  color: white;
+  background-color: var(--mainColor);
 }
