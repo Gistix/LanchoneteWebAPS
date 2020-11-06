@@ -41,10 +41,7 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         //response.setContentType("text/html;charset=UTF-8");
-        System.out.println("processRequest");
-        System.out.println(Utilidades.AutenticarSomente(request));
-        System.out.println(Utilidades.EstaLogado(request));
-        
+
         if (Utilidades.AutenticarSomente(request)) {
             if (Utilidades.EstaLogado(request)) {
                 request.setAttribute("erro", "Voçê já está logado.");
@@ -54,7 +51,7 @@ public class loginServlet extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
 
-            Cliente cliente =  EclipseLinkMgr.Login(usuario, senha);
+            Cliente cliente =  DAOEclipseLink.Login(usuario, senha);
             
             if (cliente != null) {
                 HttpSession session = request.getSession();

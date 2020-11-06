@@ -120,10 +120,20 @@ article {
     width: auto;
 }
 
+.center2 {
+    justify-content: center;
+    align-items: center; 
+    width: auto;
+}
+
 .div-sel-ingrediente {
     display: block;
     align-items: center;
     justify-content: center;
+}
+
+.sel-ingrediente {
+    min-width: 150px;
 }
 
 .form {
@@ -227,6 +237,25 @@ article {
     bottom: 0;     
 }
 
+.botao { 
+    border-radius: 3px;
+    padding: 8px;
+    background-color: lightgray;
+    cursor: pointer;
+    border: none;
+    font-size: 100%;
+    
+    color: var(--bgColor);
+}
+
+.botao.aceitar {
+    background-color: var(--mainColor);
+}
+
+.botao.aceitar:hover{
+    background-color: var(--hoverColor);
+}
+
 .ladoalado {
     display: flex;
 }
@@ -282,6 +311,9 @@ nav li a, nav li p {
   height: 40px;
   align-items: center;
   display: flex;
+  
+  transition: box-shadow 0.2s ease;
+  transition-delay: 0.0s;  
 }
 
 nav li a:hover {

@@ -5,26 +5,23 @@
  */
 package Servlet;
 
-import Entities.*;
-import Highway.DAOEclipseLink;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static javax.servlet.http.HttpServletResponse.*;
+import Entities.Pedido;
+import Highway.DAOEclipseLink;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author Giovanni
  */
-@WebServlet(name = "pedidosServlet", urlPatterns = {"/pedidosServlet"})
-public class pedidosServlet extends HttpServlet {
+@WebServlet(name = "novoPedidoServlet", urlPatterns = {"/novoPedidoServlet"})
+public class novoPedidoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,69 +34,57 @@ public class pedidosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-      
-        Boolean logado = Utilidades.EstaLogado(request);
         
-        if (Utilidades.AutenticarSomente(request) && !logado) {
+        if (Utilidades.AutenticarSomente(request) && !Utilidades.EstaLogado(request)) {
             response.setStatus(201);
             response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
-            response.setHeader("url", "index.jsp");
-            //request.getRequestDispatcher("index.jsp").forward(request, response);             
+            response.setHeader("url", "index.jsp");        
         } else {
+            response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet novoPedido</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Servlet novoPedido at " + request.getContextPath() + "</h1>");
+
+                int idPao = Integer.parseInt(request.getParameter("select-Pao"));
+                int idCarne = Integer.parseInt(request.getParameter("select-Carne"));
+                Integer idSalada = Integer.parseInt(request.getParameter("select-Salada"));
+                Integer idMolho = Integer.parseInt(request.getParameter("select-Molho"));
+                
+                if (idSalada == 0)
+                    idSalada = null;
+                
+                if (idMolho == 0)
+                    idMolho = null;
+                 
                 HttpSession session = request.getSession(false);
                 String usuario = (String) session.getAttribute("usuario");
-                List<Pedido> pedidos = DAOEclipseLink.Pedidos(usuario); 
+                Date dataHora = new Date(System.currentTimeMillis());
+                
+                Pedido pedido = new Pedido(-1, usuario, idPao, idCarne, idSalada, idMolho, dataHora);
 
-                for (Pedido pedido : pedidos) {
-                    List<Ingrediente> ingredientes = DAOEclipseLink.Ingredientes(pedido);
-                    String[] nomes = DAOEclipseLink.NomeIngredientes(ingredientes);
+                
+                //DAOEclipseLink.NovoPedido(pedido);
+                DAOEclipseLink.QueryInsert(pedido);
+                
+                out.println(pedido.toString());                
+                
+                out.println(idPao);
+                out.println(idCarne);
+                out.println(idSalada);
+                out.println(idMolho);
 
-                    out.println("<div class='grid pedido'>");
-                    out.println("<div class='ingredientes'>");
-
-                    out.println(nomes[0]);
-                    out.println("</br>");
-
-                    out.println(nomes[1]); 
-                    out.println("</br>");
-
-                    if(nomes[2] != "") {
-                        out.println(nomes[2]);
-                        out.println("</br>");                        
-                    }
-
-                    if(nomes[3] != "") {                   
-                        out.println(nomes[3]);
-                        out.println("</br>");
-                    }
-
-
-                    out.println("</div>");
-
-                    out.println("<div class='total'>");                    
-                    out.println("Total: R$" + String.format("%.2f", DAOEclipseLink.Preco(ingredientes)));  
-                    out.println("</div>");
-
-                    out.println("</div>");                     
-                }
-                out.close();
+                response.setHeader("mensagem", "Cadastrado com sucesso.");           
+                response.setHeader("url", "index.jsp");                
+                
+                out.println("</body>");
+                out.println("</html>");
             }
-            
         }
-        /*} else {
-            //out.println("<h1>Voce precisa estar logado para acessar essa página.</h1>");
-            //out.println("<h1><a href='index.jsp'>Fazer login.</a></h1>");
-            
-            //response.setStatus(201);
-            //response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-            //response.setStatus(SC_OK);
-            request.setAttribute("erro", "Voce precisa estar logado para acessar essa página.");
-            request.getRequestDispatcher("index.jsp").forward(request, response);   
-        }*/
-            
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

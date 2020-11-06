@@ -4,6 +4,48 @@
  * and open the template in the editor.
  */
 
+function onLoadSelect() {
+    var select = document.getElementsByTagName("select");
+    for (var i = 0; i < select.length; i++) {
+        select[i].onchange();
+    }
+}
+
+function onChange(select, precos) {  
+    var precosList = JSON.parse(precos);
+    var index = select.value;
+
+    var precoElem = select.parentElement.querySelector("#preco");
+    
+    if (index > 0) {
+        var preco = precosList[index-1];
+        precoElem.innerText = "R$ " + preco.toFixed(2);
+    } else
+        precoElem.innerText = "--";
+    
+    onUpdateTotal(precosList);
+}
+
+function onUpdateTotal(precosList) {
+    var precoTotalElem = document.getElementById("preco-total");
+    var precoTotal = 0;
+    
+    var paoIndex = document.getElementsByName("select-Pao")[0].value;
+    var carneIndex = document.getElementsByName("select-Carne")[0].value;
+    var saladaIndex = document.getElementsByName("select-Salada")[0].value;
+    var molhoIndex = document.getElementsByName("select-Molho")[0].value;
+    
+    precoTotal = precosList[paoIndex-1] + precosList[carneIndex-1];
+    
+    if (saladaIndex > 0)
+        precoTotal += precosList[saladaIndex-1];
+    
+    if (molhoIndex > 0)
+        precoTotal += precosList[molhoIndex-1];    
+    
+    precoTotalElem.innerText = "Total: R$ " + precoTotal.toFixed(2);   
+}
+
 function sendFakeForm() {
     var fakeForm = document.getElementById("fakeForm");
     

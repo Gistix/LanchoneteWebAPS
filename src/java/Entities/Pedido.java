@@ -6,6 +6,7 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -13,24 +14,28 @@ import javax.persistence.*;
  * @author Giovanni
  */
 @Entity
-@Table(name="tb_pedido")
-public class Pedido {
-    @Id
-    public int numero;
+@Table(name="tb_pedidos")
+public class Pedido implements Serializable {
+    @Id  
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator="tb_pedidos_numero_seq")    
+    public Integer numero;
     public String usuario;
-    public int pao;
-    public int carne;    
-    public int salada;
-    public int molho;
- 
+    public Integer pao;
+    public Integer carne;    
+    public Integer salada;
+    public Integer molho;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    public Date dataHora;
+    
     public Pedido () {};      
     
-    public Pedido (int numero, String usuario, int pao, int salada, int carne, int molho) {
+    public Pedido (Integer numero, String usuario, Integer pao, Integer carne, Integer salada, Integer molho, Date dataHora) {
         this.numero = numero;
         this.usuario = usuario;
         this.pao = pao;
         this.carne = carne;
         this.salada = salada;
-        this.molho = molho;     
-    }
+        this.molho = molho;    
+        this.dataHora = dataHora;
+    }   
 }

@@ -6,7 +6,7 @@
 package Servlet;
 
 import Entities.Cliente;
-import Highway.EclipseLinkMgr;
+import Highway.DAOEclipseLink;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -59,7 +59,7 @@ public class cadastrarServlet extends HttpServlet {
                     request.setAttribute("erro", "Por favor preencha todos os campos.");
                     request.getRequestDispatcher("cadastro.jsp").forward(request, response);                    
                 } else {
-                    Boolean existe = EclipseLinkMgr.UsuarioCPFExiste(usuario, cpf);
+                    Boolean existe = DAOEclipseLink.UsuarioCPFExiste(usuario, cpf);
 
                     if (existe) {
                         response.setHeader("erro", "Já existe um usuario com esse nome ou cpf.");
@@ -67,7 +67,7 @@ public class cadastrarServlet extends HttpServlet {
                         ///request.getRequestDispatcher("cadastro.jsp").forward(request, response);
                     } else {
                         Cliente cliente = new Cliente(nome, cpf, usuario, senha, rua, Integer.parseInt(numeroStr), cep, false);                   
-                        EclipseLinkMgr.QueryInsert(cliente);
+                        DAOEclipseLink.QueryInsert(cliente);
 
                         response.setHeader("mensagem", "Cadastrado com sucesso.");           
                         response.setHeader("url", "index.jsp");                          

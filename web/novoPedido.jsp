@@ -4,15 +4,21 @@
     Author     : mmarc
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="Highway.DAOEclipseLink"%>
+<%@page import="Entities.Ingrediente"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Fazerr pedido</title>
+        <title>Fazer pedido</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
+        <script src="${pageContext.request.contextPath}/script.js"></script>           
     </head>
-    <body>
+    <body onload="onLoadSelect()">
         <header>  
             <div class="table">
                 <div class="header">
@@ -39,44 +45,54 @@
         </header>  
         
 	<article>     
-            <div class="form-bg ladoalado">
+            <div class="form-bg" style="padding: 30px 60px">
 
-                <div class="div-sel-ingrediente">
-                    <img src="${pageContext.request.contextPath}/img/pao.png" alt="pão-icone" class="icone-ingrediente">
+                <% List<Ingrediente> ingredientes = DAOEclipseLink.instance.TodosIngredientes();%>
+                
+                <%List<Float> precos = new ArrayList<Float>();
+                for (Ingrediente ingrediente : ingredientes) {
+                    precos.add(ingrediente.preco);
+                }%>
+                
+                <c:set var="precos" value="<%=precos%>" />
+                
+                <form name="loginForm" method="post" action="novoPedidoServlet">
+                    <%
+                    for (int i = 1; i < 5; i++) {
+                        String nomeIngre = Ingrediente.Tipo.fromInt(i).toString();
+                    %>
+                        <div class="center2 ladoalado">
+                            <img src="${pageContext.request.contextPath}/img/<%=nomeIngre.toLowerCase()%>.png" alt="<%=nomeIngre%>-icone" class="icone-ingrediente">
+
+                            <div class="formspace">
+                                <select name="select-<%=nomeIngre%>" class="sel-ingrediente" onchange="onChange(this, '${precos}')">
+                                    <%if (i > 2) {%>
+                                    <option value="0">Nenhum</option>   
+                                    <%}%>
+
+                                    <%
+                                    for (Ingrediente ingrediente : ingredientes) {
+                                        if (ingrediente.tipo == i) {
+                                    %>
+                                    <option value="<%=ingrediente.numero%>"><%=ingrediente.nome%></option>   
+                                    <%  
+                                        }
+                                    }
+                                    %>
+                                </select>
+                                <p id="preco">R$: </p>
+                            </div>
+                        </div>
+                    <%  
+                    }
+                    %> 
                     
+                    <h1 id="preco-total" class="center">Total: R$ </h1>
                     <div class="center">
-                        <select class="sel-ingrediente">
-                            <option value="0">Pão</option>              
-                        </select>
+                        <input type="submit" value="Realizar Pedido" class="botao aceitar" style="margin-top: 20px">   
                     </div>
-                </div>
-                    
-                <div class="div-sel-ingrediente">
-                    <img src="${pageContext.request.contextPath}/img/carne.png" alt="hamburguer-icone" class="icone-ingrediente">
-                    <div class="center">
-                        <select class="sel-ingrediente">
-                          <option value="0">Carne</option>
-                        </select>
-                    </div>
-                </div>
-                    
-                <div class="div-sel-ingrediente">
-                    <img src="${pageContext.request.contextPath}/img/salada.png" alt="salada-icone" class="icone-ingrediente">
-                    <div class="center">
-                        <select class="sel-ingrediente">
-                          <option value="0">Salada</option>
-                        </select>
-                    </div>
-                </div>
-                    
-                <div class="div-sel-ingrediente">
-                    <img src="${pageContext.request.contextPath}/img/molho.png" alt="molho-icone" class="icone-ingrediente">
-                    <div class="center">
-                        <select class="sel-ingrediente">
-                          <option value="0">Molho</option>
-                        </select>
-                    </div>
-                </div>
+                </form>                
+                
             </div>           
        </article>
             

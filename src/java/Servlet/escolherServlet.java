@@ -5,7 +5,7 @@
  */
 package Servlet;
 
-import Highway.EclipseLinkMgr;
+import Highway.DAOEclipseLink;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
