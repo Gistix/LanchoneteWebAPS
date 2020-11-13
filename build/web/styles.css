@@ -371,3 +371,34 @@ nav li a:hover {
   color: white;
   background-color: var(--mainColor);
 }
+
+.form-pesquisa-rel {
+    padding-top: 30px;
+}
+
+.form-pesq-title {
+    margin-bottom: 5%;
+}
+
+.form-pesq {
+    background-color: white;
+    cursor: default;
+    color: var(--bgColor);
+ 
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+    border-radius: 3px;
+    padding: 10px 30px;
+}
+
+.input-hora {
+    margin-left:  10px;
+    width: 70px;
+}
+
+.input-data {
+    width: 100px;
+}
+
+.butao-pesq {
+    margin-top: 10px;
+}

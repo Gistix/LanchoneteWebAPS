@@ -21,7 +21,7 @@
                     <li class="item ${param.novoPedido ? 'active' : ''} ${usuario == null ? 'hide' : ''}"><a href="novoPedido.jsp">Novo Pedido</a></li>
                     <li class="item ${param.pedidos ? 'active' : ''} ${usuario == null ? 'hide' : ''}"><a href="pedidos.jsp">Meus Pedidos</a></li>	
                     <li class="item ${param.ingredientes ? 'active' : ''} ${adm ? '' : 'hide'}"><a href="ingredientes.jsp">Ingredientes</a></li>	
-                    <li class="item ${param.pedidosAdm ? 'active' : ''} ${adm ? '' : 'hide'}"><a href="pedidosAdm.jsp">Pedidos</a></li>																						
+                    <li class="item ${param.relatorio ? 'active' : ''} ${adm ? '' : 'hide'}"><a href="pedidosAdm.jsp">Pedidos</a></li>																						
                 </div>
             </ul>
         </nav>

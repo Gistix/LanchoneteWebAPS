@@ -1,2 +1,0 @@
-Entities.ClienteId
-Entities.Cliente
