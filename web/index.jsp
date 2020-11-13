@@ -25,25 +25,10 @@
         </script>   
     </head>
     <body onload="onLoad()">   
-        <header>  
-            <div class="table">
-                <div class="header">
-                    <h1 class="titletext">HIGHWAY</h1>         
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo" class="logo">  
-                </div>
-            </div>
-            <div class="table barra">
-                <nav>
-                    <ul>
-                        <div class="folding">       
-                            <li class="active item"><p>Login</p></li>                            
-                            <li class="item"><a href="cadastro.jsp">Cadastrar</a></li>																						
-                        </div>
-                    </ul>
-                </nav>               
-            </div>
-        </header>
-        
+        <jsp:include page="WEB-INF/header.jsp">
+            <jsp:param name="index" value="true"/>           
+        </jsp:include>                
+                
 	<article>                                   
             <div class="center">
                 <div class="form-bg">

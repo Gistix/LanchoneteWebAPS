@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Entities.Pedido;
-import Highway.DAOEclipseLink;
+import Highway.DAOBase;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 /**
@@ -40,50 +40,27 @@ public class novoPedidoServlet extends HttpServlet {
             response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
             response.setHeader("url", "index.jsp");        
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet novoPedido</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Servlet novoPedido at " + request.getContextPath() + "</h1>");
+            int idPao = Integer.parseInt(request.getParameter("select-Pao"));
+            int idCarne = Integer.parseInt(request.getParameter("select-Carne"));
+            Integer idSalada = Integer.parseInt(request.getParameter("select-Salada"));
+            Integer idMolho = Integer.parseInt(request.getParameter("select-Molho"));
 
-                int idPao = Integer.parseInt(request.getParameter("select-Pao"));
-                int idCarne = Integer.parseInt(request.getParameter("select-Carne"));
-                Integer idSalada = Integer.parseInt(request.getParameter("select-Salada"));
-                Integer idMolho = Integer.parseInt(request.getParameter("select-Molho"));
-                
-                if (idSalada == 0)
-                    idSalada = null;
-                
-                if (idMolho == 0)
-                    idMolho = null;
-                 
-                HttpSession session = request.getSession(false);
-                String usuario = (String) session.getAttribute("usuario");
-                Date dataHora = new Date(System.currentTimeMillis());
-                
-                Pedido pedido = new Pedido(-1, usuario, idPao, idCarne, idSalada, idMolho, dataHora);
+            if (idSalada == 0)
+                idSalada = null;
 
-                
-                //DAOEclipseLink.NovoPedido(pedido);
-                DAOEclipseLink.QueryInsert(pedido);
-                
-                out.println(pedido.toString());                
-                
-                out.println(idPao);
-                out.println(idCarne);
-                out.println(idSalada);
-                out.println(idMolho);
+            if (idMolho == 0)
+                idMolho = null;
 
-                response.setHeader("mensagem", "Cadastrado com sucesso.");           
-                response.setHeader("url", "index.jsp");                
-                
-                out.println("</body>");
-                out.println("</html>");
-            }
+            HttpSession session = request.getSession(false);
+            String usuario = (String) session.getAttribute("usuario");
+            Date dataHora = new Date(System.currentTimeMillis());
+
+            Pedido pedido = new Pedido(-1, usuario, idPao, idCarne, idSalada, idMolho, dataHora);
+
+            DAOBase.QueryInsert(pedido);
+
+            request.setAttribute("pedido", true);
+            request.getRequestDispatcher("pedidos.jsp").forward(request, response);            
         }
     }
 

@@ -4,6 +4,12 @@
     Author     : Giovanni
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Entities.Ingrediente"%>
+<%@page import="java.util.List"%>
+<%@page import="Entities.Pedido"%>
+<%@page import="Highway.DAOPedido"%>
+<%@page import="Highway.DAOIngrediente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,37 +18,65 @@
         <title>Highway</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGetReplace("pedidosServlet");</script>
+        <script>sendGet("pedidosServlet")</script>
     </head>
-    <body onload="onLoad()">   
-        <header>  
-            <div class="table">
-                <div class="header">
-                    <h1 class="titletext">HIGHWAY</h1>         
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo" class="logo">  
-                </div>
-            </div>
-            <div class="table barra">
-                <nav>
-                    <ul>
-                        <div class="folding">                          
-                            <li class="item"><a href="escolher.jsp">Home</a></li>
-                            <li class="item"><a href="novoPedido.jsp">Novo Pedido</a></li>
-                            <li class="active item"><p>Meus Pedidos</p></li>                            
-                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrc.html">Novo Ingrediente</a></li>	
-                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrv.html">Faturamento</a></li>																						
-                        </div>
-                    </ul>
-                </nav>
-                <div class="info">
-                    <a class="sair" href="logoutServlet">Sair</a><p>&nbsp(${usuario})</p>  
-                </div>                
-            </div>
-        </header>
+    <body>   
+        <jsp:include page="WEB-INF/header.jsp">           
+            <jsp:param name="pedidos" value="true"/>
+        </jsp:include>
         
 	<article>
-            <div id="content" class="center grid-container grande">
+            <div class="center grid-container grande">
+                <%
+                HttpSession session2 = request.getSession(false);
 
+                if (session2 != null) {
+                    Object objUsuario = session2.getAttribute("usuario");
+
+                    if (objUsuario != null && !((String)objUsuario).isEmpty()){
+                        List<Pedido> pedidos = DAOPedido.Pedidos((String) objUsuario);
+                        
+                        for (Pedido pedido : pedidos) {
+                           List<Ingrediente> ingredientes = DAOIngrediente.Ingredientes(pedido);
+                           String[] nomes = DAOIngrediente.NomeIngredientes(ingredientes);  
+                                if (pedidos.indexOf(pedido) == 0) {
+                           %>                            
+                                    <div class='grid pedido ${pedido ? 'ativo' : ''}'>
+                                <%}else{%>        
+                                     <div class='grid pedido'>  
+                                <%}%>          
+                                <div class='pedidocontainer'>
+                                    <%=pedido.numero%> - <%=new SimpleDateFormat("dd/MM/yyyy").format(pedido.dataHora)%>
+
+                                    <div class='ingredientes'>
+                                        <%=nomes[0]%>
+                                        </br>
+
+                                        <%=nomes[1]%> 
+                                        </br>
+
+                                        <%if(nomes[2] != "") {%>
+                                        <%=nomes[2]%>
+                                        </br>                
+                                        <%}%>
+
+                                        <%if(nomes[3] != "") {%>
+                                        <%=nomes[3]%>
+                                        </br>                
+                                        <%}%>
+                                    </div>
+
+                                    <div class='total'>                    
+                                        Total: R$ <%=String.format("%.2f", DAOPedido.Preco(ingredientes))%>  
+                                    </div>
+                                </div>
+                            </div>                             
+                           
+                           <%                           
+                        }
+                    }
+                }
+                %>
             </div>        
        </article>
             

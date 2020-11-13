@@ -30,4 +30,17 @@ public class Utilidades {
         
         return false;
     }
+    
+    public static Boolean EADM (HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        
+        if (session != null) {
+            Object adm = session.getAttribute("adm");
+            
+            if (adm != null && (Boolean)adm == true)
+                return true;
+        }
+        
+        return false;
+    }    
 }

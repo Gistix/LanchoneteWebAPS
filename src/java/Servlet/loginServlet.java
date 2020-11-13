@@ -7,18 +7,13 @@ package Servlet;
 
 import Entities.Cliente;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Highway.*;
-import java.util.Enumeration;
-import java.util.Map;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.Cookie;
-import static javax.servlet.http.HttpServletResponse.*;
+import Highway.DAOCliente;
+
 import javax.servlet.http.HttpSession;
 
 /**
@@ -51,7 +46,7 @@ public class loginServlet extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
 
-            Cliente cliente =  DAOEclipseLink.Login(usuario, senha);
+            Cliente cliente =  DAOCliente.Login(usuario, senha);
             
             if (cliente != null) {
                 HttpSession session = request.getSession();

@@ -1,0 +1,24 @@
+<header>  
+    <div class="table">
+        <div class="header">
+            <h1 class="titletext">HIGHWAY</h1>         
+            <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo" class="logo">  
+        </div>
+    </div>
+    <div class="table barra">
+        <nav>
+            <ul>
+                <div class="folding">                          
+                    <li class="item"><a href="escolher.jsp">Home</a></li>
+                    <li class="item"><p>Novo Pedido</p></li>
+                    <li class="item"><a href="pedidos.jsp">Meus Pedidos</a></li>	
+                    <li class="active item ${adm ? '' : 'hide'}"><a href="ingredientes.jsp">Ingredientes</a></li>	
+                    <li class="item ${adm ? '' : 'hide'}"><a href="ctrv.html">Pedidos</a></li>																						
+                </div>
+            </ul>
+        </nav>
+        <div class="info">
+            <a class="sair" href="logoutServlet">Sair</a><p>&nbsp(${param.usuario})</p>  
+        </div>                
+    </div>
+</header> 

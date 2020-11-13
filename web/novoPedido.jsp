@@ -6,7 +6,7 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="Highway.DAOEclipseLink"%>
+<%@page import="Highway.DAOIngrediente"%>
 <%@page import="Entities.Ingrediente"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,38 +16,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Fazer pedido</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
-        <script src="${pageContext.request.contextPath}/script.js"></script>           
+        <script src="${pageContext.request.contextPath}/script.js"></script>
+        <script>sendGet("novoPedidoServlet")</script>        
     </head>
     <body onload="onLoadSelect()">
-        <header>  
-            <div class="table">
-                <div class="header">
-                    <h1 class="titletext">HIGHWAY</h1>         
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo" class="logo">  
-                </div>
-            </div>
-            <div class="table barra">
-                <nav>
-                    <ul>
-                        <div class="folding">                          
-                            <li class="item"><a href="escolher.jsp">Home</a></li>
-                            <li class="active item"><p>Novo Pedido</p></li>
-                            <li class="item"><a href="pedidos.jsp">Meus Pedidos</a></li>	
-                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrc.html">Novo Ingrediente</a></li>	
-                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrv.html">Faturamento</a></li>																						
-                        </div>
-                    </ul>
-                </nav>
-                <div class="info">
-                    <a class="sair" href="logoutServlet">Sair</a><p>&nbsp(${usuario})</p>  
-                </div>                
-            </div>
-        </header>  
+        <jsp:include page="WEB-INF/header.jsp">           
+            <jsp:param name="novoPedido" value="true"/>
+        </jsp:include> 
         
 	<article>     
             <div class="form-bg" style="padding: 30px 60px">
 
-                <% List<Ingrediente> ingredientes = DAOEclipseLink.instance.TodosIngredientes();%>
+                <% List<Ingrediente> ingredientes = DAOIngrediente.TodosIngredientes();%>
                 
                 <%List<Float> precos = new ArrayList<Float>();
                 for (Ingrediente ingrediente : ingredientes) {

@@ -7,7 +7,8 @@
 function onLoadSelect() {
     var select = document.getElementsByTagName("select");
     for (var i = 0; i < select.length; i++) {
-        select[i].onchange();
+        if (typeof select[i].onchange === "function")
+            select[i].onchange();
     }
 }
 
@@ -25,6 +26,29 @@ function onChange(select, precos) {
     
     onUpdateTotal(precosList);
 }
+
+function onChangeTipo(select) {  
+    var name = select.options[select.selectedIndex].text;
+
+    var iconeElem = document.getElementById("icone-ingrediente");
+    
+    iconeElem.className = "icone-ingrediente " + name.toLowerCase();
+}
+
+function onChangeTipoRemover(select) {     
+    var name = select.options[select.selectedIndex].text;
+
+    var select = document.getElementsByName("select-ingrediente");
+
+    for (var i = 0; i < select.length; i++) {
+        if (select[i].id != name) {
+            select[i].className = "hide";
+        } else  {
+            select[i].className = "";
+        }
+    }   
+}
+
 
 function onUpdateTotal(precosList) {
     var precoTotalElem = document.getElementById("preco-total");
@@ -99,7 +123,7 @@ function sendGet(servlet) {
     
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
-            if (this.status == 200) {
+            if (this.status == 201) {
                 redirect(xhttp);             
             }
         }

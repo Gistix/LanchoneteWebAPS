@@ -15,48 +15,29 @@
         <script>sendGet("escolherServlet")</script>            
     </head>
     
-    <body onload="onLoad()">   
-        <header>  
-            <div class="table">
-                <div class="header">
-                    <h1 class="titletext">HIGHWAY</h1>         
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo" class="logo">  
-                </div>
-            </div>
-            <div class="table barra">
-                <nav>
-                    <ul>
-                        <div class="folding">
-                            <li class="active label"><p>Home</p></li>
-                            <li class="item"><a href="novoPedido.jsp">Novo Pedido</a></li>
-                            <li class="item"><a href="pedidos.jsp">Meus Pedidos</a></li>	
-                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrc.html">Novo Ingrediente</a></li>	
-                            <li class="item ${adm ? '' : 'hide'}"><a href="ctrv.html">Faturamento</a></li>																						
-                        </div>							
-                    </ul>
-                </nav>
-                <div class="info">
-                    <a class="sair" href="logoutServlet">Sair</a><p>&nbsp(${usuario})</p>  
-                </div>                
-            </div>
-        </header> 
+    <body onload="onLoad()">
+        <jsp:include page="WEB-INF/header.jsp">           
+            <jsp:param name="escolher" value="true"/>
+        </jsp:include>
         
 	<article>
-            <div class="center grid-container pequeno">              
-                <a href='novoPedido.jsp' class='grid menu'>Novo pedido</a>
-                <a href='pedidos.jsp' class='grid menu'>Meus pedidos</a>
+            <div class="center">
+                <div class="grid-container pequeno">              
+                    <a href='novoPedido.jsp' class='grid menu'>Novo pedido</a>
+                    <a href='pedidos.jsp' class='grid menu'>Meus pedidos</a>
 
-                <div class='${adm ? '' : 'hide'}'>
-                    <a href='todosPedidos.jsp' class='grid menu'>Exibir pedidos</a>
-                </div>
-                    
-                <div class='${adm ? '' : 'hide'}'>                    
-                    <a href='novoIngrediente.jsp' class='grid menu'>Novo ingrediente</a>                                   
-                </div>
-            </div>  
-                    
-            <p id="erro" class="center" style="color: red"></p>
-            <p id="mensagem" class="center" style="color: green"></p>            
+                    <div class='${adm ? '' : 'hide'}'>
+                        <a href='ingredientes.jsp' class='grid menu'>Novo Ingrediente</a>
+                    </div>
+
+                    <div class='${adm ? '' : 'hide'}'>                    
+                        <a href='faturamento.jsp' class='grid menu'>Faturamento</a>                                   
+                    </div>
+                </div>  
+
+                <p id="erro" class="center" style="color: red"></p>
+                <p id="mensagem" class="center" style="color: green"></p>   
+            </div> 
        </article>
 
         <footer>

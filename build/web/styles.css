@@ -99,7 +99,7 @@ article {
       
     background: url(img/bg.png);
     background-repeat: repeat;
-    background-size: 10%;   
+    background-size: 25%;   
 
     margin: auto; 
     color: black; 
@@ -113,11 +113,37 @@ article {
     width: 100px;
 }
 
+.icone-ingrediente.pao {
+    content:url(img/pao.png);
+}
+
+.icone-ingrediente.carne {
+    content:url(img/carne.png);
+}
+
+.icone-ingrediente.salada {
+    content:url(img/salada.png);
+}
+
+.icone-ingrediente.molho {
+    content:url(img/molho.png);
+}
+
 .center {
     display: flex;
     justify-content: center;
     align-items: center; 
     width: auto;
+}
+
+.center-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;    
+    margin-bottom: 25px;    
+    position: absolute;
+    bottom: 0;    
 }
 
 .center2 {
@@ -194,6 +220,19 @@ article {
     border-radius: 3px;   
 }
 
+
+.grid-ingredientes {
+    border-radius: 3px;   
+    
+    background-color: white;
+    cursor: default;
+    color: var(--bgColor);
+ 
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
+    position: relative;
+    padding: 25px 0px;
+}
+
 /* Grid */
 .grid.menu {
     background-color: var(--mainColor);
@@ -225,13 +264,21 @@ article {
     position: relative;
 }
 
-.ingredientes {
-    margin-top: 15px;    
-    margin-left: 20px;  
+.grid.ativo {
+    background-color: var(--hoverColor);
 }
 
+.pedidocontainer {
+    padding: 10px 15px;   
+}
+
+.ingredientes {
+    font-size: 20px;
+    margin-top: 13px;
+}
+
+
 .total {   
-    margin-left: 20px;
     margin-bottom: 15px;    
     position: absolute;
     bottom: 0;     

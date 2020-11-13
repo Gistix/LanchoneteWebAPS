@@ -6,7 +6,7 @@
 package Servlet;
 
 import Entities.*;
-import Highway.DAOEclipseLink;
+import Highway.DAOBase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -46,48 +46,8 @@ public class pedidosServlet extends HttpServlet {
             response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
             response.setHeader("url", "index.jsp");
             //request.getRequestDispatcher("index.jsp").forward(request, response);             
-        } else {
-            try (PrintWriter out = response.getWriter()) {
-                HttpSession session = request.getSession(false);
-                String usuario = (String) session.getAttribute("usuario");
-                List<Pedido> pedidos = DAOEclipseLink.Pedidos(usuario); 
-
-                for (Pedido pedido : pedidos) {
-                    List<Ingrediente> ingredientes = DAOEclipseLink.Ingredientes(pedido);
-                    String[] nomes = DAOEclipseLink.NomeIngredientes(ingredientes);
-
-                    out.println("<div class='grid pedido'>");
-                    out.println("<div class='ingredientes'>");
-
-                    out.println(nomes[0]);
-                    out.println("</br>");
-
-                    out.println(nomes[1]); 
-                    out.println("</br>");
-
-                    if(nomes[2] != "") {
-                        out.println(nomes[2]);
-                        out.println("</br>");                        
-                    }
-
-                    if(nomes[3] != "") {                   
-                        out.println(nomes[3]);
-                        out.println("</br>");
-                    }
-
-
-                    out.println("</div>");
-
-                    out.println("<div class='total'>");                    
-                    out.println("Total: R$" + String.format("%.2f", DAOEclipseLink.Preco(ingredientes)));  
-                    out.println("</div>");
-
-                    out.println("</div>");                     
-                }
-                out.close();
-            }
-            
         }
+            
         /*} else {
             //out.println("<h1>Voce precisa estar logado para acessar essa página.</h1>");
             //out.println("<h1><a href='index.jsp'>Fazer login.</a></h1>");

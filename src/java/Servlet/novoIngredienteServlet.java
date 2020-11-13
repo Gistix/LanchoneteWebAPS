@@ -5,7 +5,7 @@
  */
 package Servlet;
 
-import Highway.DAOBase;
+import Entities.Ingrediente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,14 +13,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Entities.Pedido;
+import Highway.DAOBase;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author Giovanni
  */
-@WebServlet(name = "escolherServlet", urlPatterns = {"/escolherServlet"})
-public class escolherServlet extends HttpServlet {
+@WebServlet(name = "novoIngredienteServlet", urlPatterns = {"/novoIngredienteServlet"})
+public class novoIngredienteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,14 +35,22 @@ public class escolherServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        if (!Utilidades.EstaLogado(request)) {
-            //request.setAttribute("erro", "Voce precisa estar logado para acessar essa página.");
-            //request.getRequestDispatcher("index.jsp").forward(request, response);
+        
+        if (Utilidades.AutenticarSomente(request) && !Utilidades.EstaLogado(request)) {
             response.setStatus(201);
             response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
-            response.setHeader("url", "index.jsp");
+            response.setHeader("url", "index.jsp");        
+        } else if (Utilidades.EADM(request)) {
+            int tipo = Integer.parseInt(request.getParameter("select"));
+            String nome = request.getParameter("nome");
+            float preco = Float.parseFloat(request.getParameter("preco"));
+
+            Ingrediente ingrediente = new Ingrediente(-1, nome, tipo, preco);
+
+            DAOBase.QueryInsert(ingrediente);
+
+            request.setAttribute("mensagem", "Ingrediente '" + nome + "' adicionado com sucesso.");
+            request.getRequestDispatcher("escolher.jsp").forward(request, response);            
         }
     }
 

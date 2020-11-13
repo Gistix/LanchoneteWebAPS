@@ -5,7 +5,7 @@
  */
 package Servlet;
 
-import Highway.DAOBase;
+import Entities.Ingrediente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,14 +13,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Entities.Pedido;
+import Highway.DAOBase;
+import Highway.DAOIngrediente;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author Giovanni
  */
-@WebServlet(name = "escolherServlet", urlPatterns = {"/escolherServlet"})
-public class escolherServlet extends HttpServlet {
+@WebServlet(name = "removeIngredienteServlet", urlPatterns = {"/removeIngredienteServlet"})
+public class removeIngredienteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +36,16 @@ public class escolherServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        if (!Utilidades.EstaLogado(request)) {
-            //request.setAttribute("erro", "Voce precisa estar logado para acessar essa página.");
-            //request.getRequestDispatcher("index.jsp").forward(request, response);
-            response.setStatus(201);
-            response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
-            response.setHeader("url", "index.jsp");
-        }
+        int tipo = Integer.parseInt(request.getParameter("select"));
+        int id = Integer.parseInt(request.getParameter("select-ingrediente"));
+        
+        Ingrediente ingrediente = DAOIngrediente.Ingrediente(id);
+
+        DAOBase.QueryRemove(ingrediente);
+
+        request.setAttribute("mensagem", "Ingrediente '" + ingrediente.nome + "' removido com sucesso.");
+        request.getRequestDispatcher("escolher.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
