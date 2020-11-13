@@ -4,8 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entities.Cliente</class>
     <class>Entities.Ingrediente</class>
-    <class>Entities.Pedido</class>
     <class>Entities.Endereco</class>
+    <class>Entities.Pedido</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/aps"/>

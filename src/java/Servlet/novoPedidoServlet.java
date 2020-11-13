@@ -12,19 +12,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Highway.*;
-import java.util.Enumeration;
-import java.util.Map;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.Cookie;
+import Entities.Pedido;
+import Highway.DAOBase;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author Giovanni
  */
-@WebServlet(urlPatterns = {"/loginServlet"})
-public class login extends HttpServlet {
+@WebServlet(name = "novoPedidoServlet", urlPatterns = {"/novoPedidoServlet"})
+public class novoPedidoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,45 +35,32 @@ public class login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        request.getSession(true);
-        
-        String usuario = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
-        //String senhamd5 = request.getParameter("senhamd5");
-         
-        response.setContentType("text/html;charset=UTF-8");       
+        if (Utilidades.AutenticarSomente(request) && !Utilidades.EstaLogado(request)) {
+            response.setStatus(201);
+            response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
+            response.setHeader("url", "index.jsp");        
+        } else {
+            int idPao = Integer.parseInt(request.getParameter("select-Pao"));
+            int idCarne = Integer.parseInt(request.getParameter("select-Carne"));
+            Integer idSalada = Integer.parseInt(request.getParameter("select-Salada"));
+            Integer idMolho = Integer.parseInt(request.getParameter("select-Molho"));
 
+            if (idSalada == 0)
+                idSalada = null;
 
-        Boolean existe =  EclipseLinkMgr.Login(usuario, senha);
-        HttpSession session = null;
-        
-        if (existe) {
-            session = request.getSession();
-            session.setAttribute("usuario", usuario);
-            session.setAttribute("senha", senha);            
-            session.setAttribute("nivel", 2);                
-            //request.setAttribute("usuario", usuario);
-        }
-        
-        if (session != null) {
-            response.sendRedirect(response.encodeRedirectURL("escolher.jsp"));           
-        } else {      
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet PostgreLogin</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Servlet PostgreLogin at " + request.getContextPath() + "</h1>");
+            if (idMolho == 0)
+                idMolho = null;
 
-                out.println("<h1> Senha ou usuario errado seu CORNO. </h1>");        
+            HttpSession session = request.getSession(false);
+            String usuario = (String) session.getAttribute("usuario");
+            Date dataHora = new Date(System.currentTimeMillis());
 
-                out.println("</body>");
-                out.println("</html>");
+            Pedido pedido = new Pedido(-1, usuario, idPao, idCarne, idSalada, idMolho, dataHora);
 
-                //EclipseLinkMgr.instance.Iniciar();
-            }
+            DAOBase.QueryInsert(pedido);
+
+            request.setAttribute("pedido", true);
+            request.getRequestDispatcher("pedidos.jsp").forward(request, response);            
         }
     }
 

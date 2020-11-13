@@ -27,7 +27,7 @@ public class Ingrediente {
         }        
     }*/
     
-    enum Tipo {
+    public enum Tipo {
         Erro(0),
         Pao(1),
         Carne(2),
@@ -40,7 +40,7 @@ public class Ingrediente {
             this.value = value;
         } 
         
-        static Tipo fromInt (int value) {
+        public static Tipo fromInt (int value) {
             for (Tipo tipo : Tipo.values())
                 if (tipo.value == value)
                     return tipo;
@@ -50,6 +50,7 @@ public class Ingrediente {
     }    
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator="tb_ingredientes_numero_seq")  
     public int numero;
     public String nome;
     //@Enumerated(EnumType.ORDINAL)

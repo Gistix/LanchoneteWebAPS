@@ -6,7 +6,7 @@
 package Servlet;
 
 import Entities.*;
-import Highway.EclipseLinkMgr;
+import Highway.DAOBase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static javax.servlet.http.HttpServletResponse.*;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -37,52 +38,28 @@ public class pedidosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-
-        List<Pedido> pedidos = new ArrayList<Pedido>();
+      
+        Boolean logado = Utilidades.EstaLogado(request);
         
-        if (session != null) {
-            String usuario = (String) session.getAttribute("usuario");
-            pedidos = EclipseLinkMgr.Query("SELECT p FROM Pedido p WHERE p.usuario = '" + usuario + "'");        
+        if (Utilidades.AutenticarSomente(request) && !logado) {
+            response.setStatus(201);
+            response.setHeader("erro", "Voce precisa estar logado para acessar essa página.");
+            response.setHeader("url", "index.jsp");
+            //request.getRequestDispatcher("index.jsp").forward(request, response);             
         }
-
-        try (PrintWriter out = response.getWriter()) {
-            if (session != null) {              
-                out.println("<h1>Seus pedidos: </h1><br>");
-                
-                out.println("<table>");
-
-                out.println("<tr>");
-                out.println("<th>Pão</th>");
-                out.println("<th>Carne</th>");
-                out.println("<th>Salada</th>");                
-                out.println("<th>Molho</th>"); 
-                out.println("<th>Preço</th>");                
-                out.println("</tr>"); 
-                
-                for (Pedido pedido : pedidos) {
-                    out.println("<tr>");
-                    
-                    List<Ingrediente> ingredientes = EclipseLinkMgr.Ingredientes(pedido);
-                    String[] nomes = EclipseLinkMgr.NomeIngredientes(ingredientes);
-                    
-                    out.println("<td>" + nomes[0] + "</td>");
-                    out.println("<td>" + nomes[1] + "</td>");                    
-                    out.println("<td>" + nomes[2] + "</td>");
-                    out.println("<td>" + nomes[3] + "</td>");
-                    out.println("<td>" + EclipseLinkMgr.Preco(ingredientes) + "</td>");  
-                    
-                    out.println("</tr>"); 
-                }
-                                             
-                out.println("</table>");            
-            } else {
-                out.println("<h1>Voce precisa estar logado para acessar essa página.</h1>");
-                out.println("<a href='index.jsp'>Fazer login.</a>");                
-            }
-
-            out.close();
-        }
+            
+        /*} else {
+            //out.println("<h1>Voce precisa estar logado para acessar essa página.</h1>");
+            //out.println("<h1><a href='index.jsp'>Fazer login.</a></h1>");
+            
+            //response.setStatus(201);
+            //response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            //response.setStatus(SC_OK);
+            request.setAttribute("erro", "Voce precisa estar logado para acessar essa página.");
+            request.getRequestDispatcher("index.jsp").forward(request, response);   
+        }*/
+            
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

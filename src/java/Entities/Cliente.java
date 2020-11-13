@@ -28,15 +28,17 @@ public class Cliente {
     private String usuario;
     private String senha;
     private Endereco endereco;
-
+    private Boolean adm;
+    
     public Cliente () {};
     
-    public Cliente (String nome, String cpf, String usuario, String senha, String rua, int numero, String cep) {
+    public Cliente (String nome, String cpf, String usuario, String senha, String rua, int numero, String cep, Boolean adm) {
         this.nome = nome;
         this.cpf = cpf;
         this.usuario = usuario;
         this.senha = senha;      
-        this.endereco = new Endereco (rua, numero, cep);       
+        this.endereco = new Endereco (rua, numero, cep);
+        this.adm = adm;
     }   
     
     public String getNome() {
@@ -77,5 +79,19 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    /**
+     * @return the adm
+     */
+    public Boolean getAdm() {
+        return adm;
+    }
+
+    /**
+     * @param adm the adm to set
+     */
+    public void setAdm(Boolean adm) {
+        this.adm = adm;
     }
 }

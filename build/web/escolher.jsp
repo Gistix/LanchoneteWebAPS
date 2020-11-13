@@ -12,26 +12,37 @@
         <title>Highway</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGet("escolherServlet");</script>
+        <script>sendGet("escolherServlet")</script>            
     </head>
-    <body>   
-        <header>           
-            <h1 class="titletext">HIGHWAY</h1>         
-            <img src="https://i.ibb.co/D8J4yVj/logo-aps.png" alt="coca-icone" width=300 height=140 class="logo"> 
-            <div>
-                Test <a href="logoutServlet">Logout</a>  
-            </div>
-        </header> 
+    
+    <body onload="onLoad()">
+        <jsp:include page="WEB-INF/header.jsp">           
+            <jsp:param name="escolher" value="true"/>
+        </jsp:include>
         
-	<article>                                   
-            <div id="content" class="center">              
+	<article>
+            <div class="center">
+                <div class="grid-container pequeno">              
+                    <a href='novoPedido.jsp' class='grid menu'>Novo pedido</a>
+                    <a href='pedidos.jsp' class='grid menu'>Meus pedidos</a>
 
-            </div>        
+                    <div class='${adm ? '' : 'hide'}'>
+                        <a href='ingredientes.jsp' class='grid menu'>Novo Ingrediente</a>
+                    </div>
+
+                    <div class='${adm ? '' : 'hide'}'>                    
+                        <a href='faturamento.jsp' class='grid menu'>Faturamento</a>                                   
+                    </div>
+                </div>  
+
+                <p id="erro" class="center" style="color: red"></p>
+                <p id="mensagem" class="center" style="color: green"></p>   
+            </div> 
        </article>
-            
+
         <footer>
             <ul>
-                <p>SISTEMA LANCHONETE WEB</p>
+                <p>LANCHONETE WEB</p>
             </ul>	
 
             <ul>					
