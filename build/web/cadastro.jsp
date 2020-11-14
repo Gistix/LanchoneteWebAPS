@@ -44,13 +44,13 @@
                         </div>                 
                         <div class="form">
                             <form name="loginForm" method="post" action="cadastrarServlet" onsubmit="encriptarSenha(this)">
-                                <input type="text" name="nome" pattern=".{3,60}" required><br>
-                                <input type="text" name="cpf" pattern=".{11,11}" required><br>
-                                <input type="text" name="usuario" pattern=".{4,12}" required><br>
-                                <input type="password" name="senha" pattern=".{4,12}" title="De quatro a doze caracteres" required><br><br><br>
-                                <input type="text" name="rua" pattern=".{12,120}" required><br>
+                                <input type="text" name="nome" pattern="[A-Za-z ]{3,60}" required><br>
+                                <input type="text" name="cpf" pattern="[0-9]{11}" title="11 números" required><br>
+                                <input type="text" name="usuario" pattern="[A-Za-z0-9]{4,12}" required><br>
+                                <input type="password" name="senha" pattern=".{4,12}" title="De 4 a 12 caracteres" required><br><br><br>
+                                <input type="text" name="rua" pattern="[A-Za-z ]{8,120}" required><br>
                                 <input type="number" name="numero" required><br>
-                                <input type="text" name="cep" pattern=".{8,8}" required>                           
+                                <input type="text" name="cep" pattern="[0-9]{8}" title="8 números" required> 
                                 <br>
                         </div>  
                     </div>

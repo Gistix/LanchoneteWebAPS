@@ -54,21 +54,23 @@ public class cadastrarServlet extends HttpServlet {
                     Boolean existe = DAOCliente.UsuarioCPFExiste(usuario, cpf);
 
                     if (existe) {
-                        response.setHeader("erro", "Já existe um usuario com esse nome ou cpf.");
-                        //request.setAttribute("erro", "Já existe um usuario com esse nome ou cpf.");
-                        ///request.getRequestDispatcher("cadastro.jsp").forward(request, response);
+                        //response.setHeader("erro", "Já existe um usuario com esse nome ou cpf.");
+                        request.setAttribute("erro", "Já existe um usuario com esse nome ou cpf.");
+                        request.getRequestDispatcher("cadastro.jsp").forward(request, response);
                     } else {
                         Cliente cliente = new Cliente(nome, cpf, usuario, senha, rua, Integer.parseInt(numeroStr), cep, false);                   
                         DAOBase.QueryInsert(cliente);
 
+                        /*response.setStatus(201);
                         response.setHeader("mensagem", "Cadastrado com sucesso.");           
-                        response.setHeader("url", "index.jsp");                          
+                        response.setHeader("url", "index.jsp");    */                      
                         
-                        //request.setAttribute("mensagem", "Cadastrado com sucesso.");
-                        //request.getRequestDispatcher("index.jsp").forward(request, response);
+                        request.setAttribute("mensagem", "Cadastrado com sucesso.");
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
                     }
                 }
             } else {
+                response.setStatus(201);
                 response.setHeader("erro", "Voçê já está logado e não pode se cadastrar de novo.");           
                 response.setHeader("url", "escolher.jsp");                  
                 //request.setAttribute("erro", "Voçê já está logado e não pode se cadastrar de novo.");

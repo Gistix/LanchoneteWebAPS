@@ -60,7 +60,7 @@
                         </div> 
                     </form>
                         
-                        <div class="formspace">                                
+                        <div class="formspace center">                                
                             <p id="erro" style="color: red">${erro}</p>
                             <p id="mensagem" style="color: green">${mensagem}</p>
                         </div>

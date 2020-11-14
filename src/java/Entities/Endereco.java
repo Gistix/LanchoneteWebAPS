@@ -54,13 +54,13 @@ public class Endereco {
     
     public PGobject ToDBData () throws SQLException {
         //String endereco = String.format("(s%,%d,%s)", rua, numero, cep);
-        String endereco = "(\"" + rua + "\", " + numero + ", " + cep + ")";
+        String endereco = "(" + rua + "," + numero + "," + cep + ")";
         
-        PGobject jsonbObject = new PGobject();
-        jsonbObject.setType("endereco");
-        jsonbObject.setValue(endereco);
+        PGobject pgObject = new PGobject();
+        pgObject.setType("endereco");
+        pgObject.setValue(endereco);
         
-        return jsonbObject;
+        return pgObject;
     }
     
     public static Endereco FromDBData (PGobject dbData) {
