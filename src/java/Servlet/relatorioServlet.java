@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Entities.Ingrediente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Giovanni
  */
-@WebServlet(name = "novoPedidoServlet", urlPatterns = {"/novoPedidoServlet"})
-public class novoPedidoServlet extends HttpServlet {
+@WebServlet(name = "relatorioServlet", urlPatterns = {"/relatorioServlet"})
+public class relatorioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,29 +35,20 @@ public class novoPedidoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           
-        if (!Utilidades.AutenticarSomente(request) && Utilidades.EstaLogado(request)) {
-            int idPao = Integer.parseInt(request.getParameter("select-Pao"));
-            int idCarne = Integer.parseInt(request.getParameter("select-Carne"));
-            Integer idSalada = Integer.parseInt(request.getParameter("select-Salada"));
-            Integer idMolho = Integer.parseInt(request.getParameter("select-Molho"));
-
-            if (idSalada == 0)
-                idSalada = null;
-
-            if (idMolho == 0)
-                idMolho = null;
-
-            HttpSession session = request.getSession(false);
-            String usuario = (String) session.getAttribute("usuario");
-            Date dataHora = new Date(System.currentTimeMillis());
-
-            Pedido pedido = new Pedido(-1, usuario, idPao, idCarne, idSalada, idMolho, dataHora);
-
-            DAOBase.QueryInsert(pedido);
-
-            request.setAttribute("pedido", true);
-            request.getRequestDispatcher("pedidos.jsp").forward(request, response);            
+  
+        if (Utilidades.EstaLogado(request) && Utilidades.EADM(request)) {
+            /*String dataInicio = request.getParameter("data-inicio");
+            String horaInicio = request.getParameter("hora-inicio");
+ 
+            String dataFim = request.getParameter("data-fim");
+            String horaFim = request.getParameter("hora-fim");*/        
+                       
+            request.setAttribute("tabela", true);
+            /*request.setAttribute("data-inicio", dataInicio);
+            request.setAttribute("hora-inicio", horaInicio); 
+            request.setAttribute("data-fim", dataInicio);
+            request.setAttribute("hora-fim", horaInicio);   */
+            request.getRequestDispatcher("relatorio.jsp").forward(request, response);            
         }
     }
 

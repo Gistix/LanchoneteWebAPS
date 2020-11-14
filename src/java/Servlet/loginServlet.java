@@ -36,13 +36,7 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         //response.setContentType("text/html;charset=UTF-8");
-
-        if (Utilidades.AutenticarSomente(request)) {
-            if (Utilidades.EstaLogado(request)) {
-                request.setAttribute("erro", "Voçê já está logado.");
-                request.getRequestDispatcher("escolher.jsp").forward(request, response);                     
-            }         
-        } else {
+        if (!Utilidades.AutenticarSomente(request)) {
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
 

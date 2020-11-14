@@ -12,7 +12,7 @@
         <title>Cadastro</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>    
-        <script>sendGet("cadastrarServlet")</script>  
+        <script>sendGet("naoAutenticadoServlet")</script>  
         <script src="${pageContext.request.contextPath}/CryptoJS.core.js"></script>
         <script src="${pageContext.request.contextPath}/CryptoJS.md5.js"></script>        
         <script>
@@ -30,7 +30,7 @@
         
         <article>                  
             <div class="center">
-                <div class="form-bg formspace">    
+                <div class="painel-bg geral formspace">    
                     <div class="ladoalado">
                         <div class="form">
                             Nome:<br>
@@ -44,13 +44,13 @@
                         </div>                 
                         <div class="form">
                             <form name="loginForm" method="post" action="cadastrarServlet" onsubmit="encriptarSenha(this)">
-                                <input type="text" name="nome" required><br>
-                                <input type="text" name="cpf" required><br>
-                                <input type="text" name="usuario" required><br>
-                                <input type="password" name="senha" required><br><br><br>
-                                <input type="text" name="rua" required><br>
+                                <input type="text" name="nome" pattern=".{3,60}" required><br>
+                                <input type="text" name="cpf" pattern=".{11,11}" required><br>
+                                <input type="text" name="usuario" pattern=".{4,12}" required><br>
+                                <input type="password" name="senha" pattern=".{4,12}" title="De quatro a doze caracteres" required><br><br><br>
+                                <input type="text" name="rua" pattern=".{12,120}" required><br>
                                 <input type="number" name="numero" required><br>
-                                <input type="text" name="cep" required>                           
+                                <input type="text" name="cep" pattern=".{8,8}" required>                           
                                 <br>
                         </div>  
                     </div>

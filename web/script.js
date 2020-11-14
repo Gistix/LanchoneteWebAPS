@@ -70,32 +70,29 @@ function onUpdateTotal(precosList) {
     precoTotalElem.innerText = "Total: R$ " + precoTotal.toFixed(2);   
 }
 
-function sendFakeForm() {
-    var fakeForm = document.getElementById("fakeForm");
-    
-    if (fakeForm != null) {
-        fakeForm.submit();
-    } else 
-        alert("fakeForm não existe e precisa ser inserido no HTML.")
-}
-
 function onLoad() {
     update();   
 }
 
 function update () {
+    var elementoMsg = document.getElementById("msg");
     var elementoErro = document.getElementById("erro");
     var elementoMensagem = document.getElementById("mensagem");
     
     var erro = sessionStorage.getItem("erro");
     var mensagem = sessionStorage.getItem("mensagem");
      
-    if (erro != null && erro != "")
+    if (erro != null && erro != "") {
         elementoErro.textContent = erro;
+        elementoMsg.className += "mensagem";
+    }
     
-    if (mensagem != null && mensagem != "")    
+    if (mensagem != null && mensagem != "") {  
         elementoMensagem.textContent = mensagem;
+        elementoMsg.className += "mensagem";
+    }
     
+
     sessionStorage.setItem("erro", "");
     sessionStorage.setItem("mensagem", "");     
 }
@@ -129,23 +126,6 @@ function sendGet(servlet) {
         }
     };
     
-    xhttp.open("POST", servlet, true);
-    xhttp.send("Autenticar");
-}
-
-function sendGetReplace(servlet) {
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4) {
-          if (this.status == 200) {
-              document.getElementById("content").innerHTML = this.responseText;
-          } else if (this.status == 201) {
-              redirect(xhttp);  
-          }
-      }
-    };
-
     xhttp.open("POST", servlet, true);
     xhttp.send("Autenticar");
 }

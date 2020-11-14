@@ -17,7 +17,7 @@
         <title>Fazer pedido</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGet("novoPedidoServlet")</script>        
+        <script>sendGet("autenticadoServlet")</script>        
     </head>
     <body onload="onLoadSelect()">
         <jsp:include page="WEB-INF/header.jsp">           
@@ -25,7 +25,7 @@
         </jsp:include> 
         
 	<article>     
-            <div class="form-bg" style="padding: 30px 60px">
+            <div class="painel-bg pedido">
 
                 <% List<Ingrediente> ingredientes = DAOIngrediente.TodosIngredientes();%>
                 

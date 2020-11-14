@@ -33,15 +33,8 @@ public class cadastrarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        if (Utilidades.AutenticarSomente(request)) {
-            if (Utilidades.EstaLogado(request)) {
-                response.setStatus(201);
-                response.setHeader("erro", "Voçê já está logado e não pode se cadastrar de novo.");           
-                response.setHeader("url", "escolher.jsp");  
-            }          
-        } else {
+        if (!Utilidades.AutenticarSomente(request)) {
             if (!Utilidades.EstaLogado(request)) {                       
                 String usuario = request.getParameter("usuario");
                 String senha = request.getParameter("senha");    

@@ -12,7 +12,7 @@
         <title>Highway</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGet("escolherServlet")</script>            
+        <script>sendGet("autenticadoServlet")</script>            
     </head>
     
     <body onload="onLoad()">
@@ -21,22 +21,24 @@
         </jsp:include>
         
 	<article>
-            <div class="center">
+            <div class="">
                 <div class="grid-container pequeno">              
                     <a href='novoPedido.jsp' class='grid menu'>Novo pedido</a>
                     <a href='pedidos.jsp' class='grid menu'>Meus pedidos</a>
 
                     <div class='${adm ? '' : 'hide'}'>
-                        <a href='ingredientes.jsp' class='grid menu'>Novo Ingrediente</a>
+                        <a href='ingredientes.jsp' class='grid menu'>Ingrediente</a>
                     </div>
 
                     <div class='${adm ? '' : 'hide'}'>                    
-                        <a href='faturamento.jsp' class='grid menu'>Faturamento</a>                                   
+                        <a href='relatorio.jsp' class='grid menu'>Relatorio</a>                                   
                     </div>
                 </div>  
-
-                <p id="erro" class="center" style="color: red"></p>
-                <p id="mensagem" class="center" style="color: green"></p>   
+                        
+                <div id="msg" class="painel-bg ${erro != null ? 'mensagem' : ''} ${mensagem != null ? 'mensagem' : ''}">
+                    <p id="erro" class="center" style="color: red">${erro}</p>
+                    <p id="mensagem" class="center" style="color: green">${mensagem}</p> 
+                </div>
             </div> 
        </article>
 

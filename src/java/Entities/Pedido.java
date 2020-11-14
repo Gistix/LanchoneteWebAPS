@@ -7,6 +7,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -37,5 +38,16 @@ public class Pedido implements Serializable {
         this.salada = salada;
         this.molho = molho;    
         this.dataHora = dataHora;
-    }   
+    }
+    
+    public float Preco (List<Ingrediente> ingredientes) {
+        float preco = 0.0f;
+        
+        for(Ingrediente ingrediente : ingredientes) {
+            if (ingrediente.numero == pao || ingrediente.numero == carne || (salada != null && ingrediente.numero == salada) || (molho != null && ingrediente.numero == molho))
+                preco += ingrediente.preco;
+        }
+        
+        return preco;
+    }
 }

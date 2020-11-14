@@ -18,7 +18,7 @@ public class DAOBase {
 
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("APS4SemestrePU");
 
-    private static EntityManager CreateEntityManager() {
+    public static EntityManager CreateEntityManager() {
         return instance.entityManagerFactory.createEntityManager();
     }
     

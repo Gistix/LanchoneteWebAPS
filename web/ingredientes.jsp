@@ -18,7 +18,7 @@
         <title>Fazer pedido</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGet("novoIngredienteServlet")</script>
+        <script>sendGet("autenticadoServlet")</script>
     </head>
     <body onload="onLoadSelect()">
         <jsp:include page="WEB-INF/header.jsp">           
@@ -51,13 +51,13 @@
                                     </div>
                                     
                                     <label for="nome">Nome:</label><br>
-                                    <input type="text" name="nome" required style="width: 125px"><br>
+                                    <input type="text" name="nome" pattern=".{3,24}" required style="width: 100px"><br>
                                     <div style="line-height:50%;">
                                         <br>
-                                    </div>                                    
+                                    </div>
                                     
                                     <label for="preco">Preço:</label> <br>                              
-                                    <input type="number" name="preco" required style="width: 125px"><br>                               
+                                    <input type="number" name="preco" required style="width: 100px"><br>                               
                                 </div>
                             </div>
                         <div class="center">

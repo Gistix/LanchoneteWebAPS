@@ -12,7 +12,7 @@
         <title>Highway</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>        
-        <script>sendGet("loginServlet")</script>    
+        <script>sendGet("naoAutenticadoServlet")</script>    
         <script src="${pageContext.request.contextPath}/CryptoJS.core.js"></script>
         <script src="${pageContext.request.contextPath}/CryptoJS.md5.js"></script>
         <script>
@@ -31,7 +31,7 @@
                 
 	<article>                                   
             <div class="center">
-                <div class="form-bg">
+                <div class="painel-bg geral">
                     <div class="center">
                         <img src="${pageContext.request.contextPath}/img/ico-usuario.png" alt="ico-usuario" style="padding-bottom: 5px" width=80 height=80>
                     </div>
@@ -43,8 +43,8 @@
                         </div>
                         
                         <form name="loginForm" method="post" action="loginServlet" onsubmit="encriptarSenha(this)">
-                            <input type="text" name="usuario" required><br/>
-                            <input type="password" name="senha" required><br/>                              
+                            <input type="text" name="usuario" pattern=".{4,12}" required><br/>
+                            <input type="password" name="senha" pattern=".{4,12}" required><br/>                              
                     </div> 
 
                         <div>

@@ -18,7 +18,7 @@
         <title>Highway</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
         <script src="${pageContext.request.contextPath}/script.js"></script>
-        <script>sendGet("pedidosServlet")</script>
+        <script>sendGet("autenticadoServlet")</script>
     </head>
     <body>   
         <jsp:include page="WEB-INF/header.jsp">           
